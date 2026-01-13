@@ -42,4 +42,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: namtieu/cicd-demo:latest
+          tags: ghcr.io/namtieu/cicd-demo:latest
