@@ -24,7 +24,7 @@ jobs:
         run: npm test
 
       - name: Build Docker image
-        run: docker build -t cicd-windows-demo .
+        run: docker build -t cicd-demo .
       - name: Login Docker Hub
         uses: docker/login-action@v3
         with:
@@ -33,5 +33,5 @@ jobs:
 
       - name: Build & Push Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/cicd-windows-demo:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/cicd-windows-demo:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/cicd-demo:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/cicd-demo:latest
