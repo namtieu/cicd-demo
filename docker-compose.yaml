@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  app:
+    image: ghcr.io/namtieu/cicd-demo:latest
+    ports:
+      - "3080:3080"
+    restart: always
