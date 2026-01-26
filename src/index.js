@@ -5,8 +5,4 @@ app.get("/", (req, res) => {
   res.send("CI/CD on Windows is working 🚀");
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-// add comment test
+module.exports = app;

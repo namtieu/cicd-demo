@@ -1,5 +1,5 @@
 const request = require('supertest');
-const express = require('express');
+const express = require('../src/index');
 
 Test("GET / should return message", async () => {
     const res = await request(app).get('/');
