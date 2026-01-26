@@ -27,10 +27,7 @@ jobs:
 
       - name: Run tests
         run: npm test
-
-      - name: Build Docker image
-        run: docker build -t cicd-demo .
-        
+ 
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
@@ -54,10 +51,10 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            docker pull namtieu/cicd-demo:latest
+            docker pull ghcr.io/namtieu/cicd-demo:latest
             docker stop cicd-demo || true
             docker rm cicd-demo || true
             docker run -d \
               --name cicd-demo \
               -p 80:3000 \
-              namtieu/cicd-demo:latest
+              ghcr.io/namtieu/cicd-demo:latest
