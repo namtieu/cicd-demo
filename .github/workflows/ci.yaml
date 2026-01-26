@@ -53,8 +53,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             docker pull ghcr.io/namtieu/cicd-demo:latest
-            docker stop cicd-demo || true
-            docker rm cicd-demo || true
+            docker rm -f cicd-demo || true
             docker run -d \
               --name cicd-demo \
               -p 80:3000 \
