@@ -3,5 +3,5 @@ const express = require('express');
 
 Test("GET / should return message", async () => {
     const res = await request(app).get('/');
-    expect(res.text).tobe('CI/CD on Windows is working 🚀');
+    expect(res.text).toBe('CI/CD on Windows broken 🚀');
 });
