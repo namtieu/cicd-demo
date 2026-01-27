@@ -28,6 +28,7 @@ jobs:
       - name: Run tests
         run: npm test
  
+      # ===== LOGIN REGISTRY =====  
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
@@ -35,6 +36,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # ===== BUILD & PUSH IMAGE (VERSIONED) =====    
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -43,6 +45,17 @@ jobs:
           tags: |
             ghcr.io/namtieu/cicd-demo:latest
             ghcr.io/namtieu/cicd-demo:${{ github.sha }}
+  
+      # ===== CI VERSION LOG =====
+      - name: Log build version
+        run: |
+          echo "===================================="
+          echo "CI BUILD VERSION"
+          echo "Repository : $GITHUB_REPOSITORY"
+          echo "Branch     : $GITHUB_REF_NAME"
+          echo "Commit SHA : $GITHUB_SHA"
+          echo "Image      : ghcr.io/namtieu/cicd-demo:$GITHUB_SHA"
+          echo "===================================="
 
       - name: Deploy to Ubuntu Server
         uses: appleboy/ssh-action@v1
@@ -52,9 +65,26 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            docker pull ghcr.io/namtieu/cicd-demo:latest
+            # docker pull ghcr.io/namtieu/cicd-demo:latest
+            # docker rm -f cicd-demo || true
+            # docker run -d \
+            #   --name cicd-demo \
+            #   -p 80:3000 \
+            #   ghcr.io/namtieu/cicd-demo:latest
+            VERSION=${{ github.sha }}
+            IMAGE=ghcr.io/namtieu/cicd-demo:$VERSION
+
+            echo "===================================="
+            echo "DEPLOY INFO"
+            echo "Version : $VERSION"
+            echo "Image   : $IMAGE"
+            echo "Time    : $(date)"
+            echo "===================================="
+
+            docker pull $IMAGE
             docker rm -f cicd-demo || true
             docker run -d \
               --name cicd-demo \
               -p 80:3000 \
-              ghcr.io/namtieu/cicd-demo:latest
+              -e APP_VERSION=$VERSION \
+              $IMAGE
