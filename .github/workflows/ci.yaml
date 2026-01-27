@@ -55,6 +55,7 @@ jobs:
           echo "Branch     : $GITHUB_REF_NAME"
           echo "Commit SHA : $GITHUB_SHA"
           echo "Image      : ghcr.io/namtieu/cicd-demo:$GITHUB_SHA"
+          echo "Build time : $(date -u)"
           echo "===================================="
 
       - name: Deploy to Ubuntu Server
