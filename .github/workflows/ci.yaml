@@ -21,7 +21,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-
+      
+      - name: Set timezone to Asia/Ho_Chi_Minh
+        run: |
+          sudo timedatectl set-timezone Asia/Ho_Chi_Minh
+          date
+              
       - name: Install dependencies
         run: npm install
 
