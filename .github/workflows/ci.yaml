@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo timedatectl set-timezone Asia/Ho_Chi_Minh
           date
-              
+
       - name: Install dependencies
         run: npm install
 
@@ -60,7 +60,7 @@ jobs:
           echo "Branch     : $GITHUB_REF_NAME"
           echo "Commit SHA : $GITHUB_SHA"
           echo "Image      : ghcr.io/namtieu/cicd-demo:$GITHUB_SHA"
-          echo "Build time : $(date -u)"
+          echo "Build time : $(date '+%Y-%m-%d %H:%M:%S %Z')"
           echo "===================================="
 
       - name: Deploy to Ubuntu Server
